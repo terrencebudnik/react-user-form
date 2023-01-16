@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import Button from "./components/Button";
 import ContactForm from "./components/ContactForm";
 
 import "./css/app.css";
@@ -6,9 +7,12 @@ import "./css/app.css";
 
 function App() {
  return (
-  <div className="app">
+  
+  <div>
     <Header />
+    <Button />
   </div>
+  
  )
  }
 
