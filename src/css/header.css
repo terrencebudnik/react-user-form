@@ -1,13 +1,16 @@
-.header {
-    position: sticky;
+.header-container {
     background: linear-gradient(#ebe5e5, hsl(235, 89%, 37%));
     height: 200px;
-    justify-content: center;
-    align-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Roboto Slab', serif;
     border-radius: 50px;
-    font-size: 50px;
+    
+}
+
+.header {
+    color: #000;
+    font-family: 'Roboto Slab', serif;
+    font-size: 45px;
+    margin: 0 auto;
 }

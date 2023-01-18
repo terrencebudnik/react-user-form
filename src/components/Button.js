@@ -1,9 +1,16 @@
+import React from 'react';
 import "../css/button.css"
 
 
-const Button = () => {
+const Button = ({ toggleForm }) => {
+
     return (
-        <button className="button">Click HERE to Get Started</button>
+        <div className="button-container">
+            <button className="modal-button" onClick={toggleForm} >Click HERE to Get Started</button>
+        </div>
+
+
+
     )
 };
 export default Button;

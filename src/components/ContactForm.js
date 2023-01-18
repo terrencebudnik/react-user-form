@@ -1,89 +1,145 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import '../css/contactform.css';
 
-const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [states, setStates] = useState([]);
+
+const ContactForm = ({ toggleForm, contactForm }) => {
   const [occupations, setOccupations] = useState([]);
-  const [state, setState] = useState('');
-  const [occupation, setOccupation] = useState('');
+  const [states, setStates] = useState([]);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    occupation: '',
+    state: ''
+  });
+
+  
 
   useEffect(() => {
-    fetch('https://frontend-take-home.fetchrewards.com/form')
-      .then(response => response.json())
-      .then(data => setStates(data));
-    fetch('https://frontend-take-home.fetchrewards.com/form')
-      .then(response => response.json())
-      .then(data => setOccupations(data));
+    axios.get('https://frontend-take-home.fetchrewards.com/form')
+      .then(response => {
+        setOccupations(response.data.occupations);
+        setStates(response.data.states);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, []);
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  }
 
   const handleSubmit = event => {
     event.preventDefault();
-    const data = { name, email, message, state, occupation };
-    // Use the `fetch` API or a library like `axios` to send a POST request to your server with the form data
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-  };
 
+    if (!formData.name || !formData.email || !formData.password || !formData.occupation || !formData.state) {
+      window.alert('Please fill out all fields before submitting.');
+  } else {
+
+    axios.post('https://frontend-take-home.fetchrewards.com/form', formData)
+      .then(response => {
+        if (response.status === 201) {
+          console.log('User created successfully');
+          toggleForm();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+}
 
   return (
-    <div>
-
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
+    contactForm &&
+      <div className='contact-form-container'>
+        <h2 className='contact-form-header'>Create an Account</h2>
+        <form className='contact-form'>
+          
+          <label>Full Name:
           <input
+            id='contact-form-name'
             type="text"
-            value={name}
-            onChange={event => setName(event.target.value)}
+            name="name"
+            placeholder="Enter Name"
+            value={formData.name}
+            onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label>
-          Email:
+          </label>
+          <br/>
+          
+          <label>Email:  
           <input
+          id='contact-form-email'
             type="email"
-            value={email}
-            onChange={event => setEmail(event.target.value)}
+            name="email"
+            placeholder="Enter Email"
+            value={formData.email}
+            onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label>
-          Message:
-          <textarea value={message} onChange={event => setMessage(event.target.value)} />
-        </label>
-        <br />
-        <label>
-          State:
-          <select value={state} onChange={event => setState(event.target.value)}>
-            {states.map(state => (
-              <option key={state.abbreviation} value={state.abbreviation}>
-                {state.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <label>
-          Occupation:
-          <select value={occupation} onChange={event => setOccupation(event.target.value)}>
+          </label>
+          <br/>
+          
+          <label>Password:
+          <input
+          id='contact-form-password'
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={formData.password}
+            onChange={handleInputChange}
+          />
+          </label>
+          <br/>
+          
+          <select
+           id='contact-form-occupation'
+            name="occupation"
+            value={formData.occupation}
+            onChange={handleInputChange}
+          >
+            <option value="">Select an Occupation</option>
             {occupations.map(occupation => (
               <option key={occupation} value={occupation}>
                 {occupation}
               </option>
             ))}
           </select>
-        </label>
-        <br />
-        <button type="submit">Send</button>
-        </form>
-    </div>
-  )
+          <br/>
+          
+          <select
+          id='contact-form-state'
+            name="state"
+            value={formData.state}
+            onChange={handleInputChange}
+          >
+            <option value="">Select a State</option>
+            {states.map(state => (
+              <option key={state.abbreviation} value={state.abbreviation}>
+                {state.name}
+              </option>
+            ))}
+          </select>
+          <br/>
+          
+          <button type="submit" onClick={handleSubmit}>
+            Submit Information
+          </button>
 
+        </form>
+        
+        <button onClick={toggleForm}>Close</button>
+      </div>
+    
+  );
 };
 
+
+
+
 export default ContactForm;
+
