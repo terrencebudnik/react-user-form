@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
-import Header from "./components/Header";
-import Button from "./components/Button";
-import ContactForm from './components/ContactForm';
-
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import WelcomePage from './pages/WelcomePage';
 
 
 function App() {
-  const [contactForm, setContactForm] = useState(false);
-
-  const toggleForm = () => {
-    setContactForm(!contactForm);
-  }
-
   return (
-    <div>
-      <Header />
-      <Button toggleForm={toggleForm} />
-      <ContactForm toggleForm={toggleForm} contactForm={contactForm}/>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage />}
+        />
+        <Route
+          path="/welcome/:name"
+          element={<WelcomePage
+          />} />
+      </Routes>
+    </Router>
   );
 }
+
 
 export default App;
 

@@ -1,0 +1,16 @@
+.welcome-container {
+    background: linear-gradient(#ebe5e5, hsl(235, 89%, 37%));
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    
+}
+
+.welcome-header {
+    color: #000;
+    font-family: 'Roboto Slab', serif;
+    font-size: 45px;
+    margin: 0 auto;
+}

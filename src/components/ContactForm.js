@@ -44,7 +44,7 @@ const ContactForm = ({ toggleForm, contactForm }) => {
       .then(response => {
         if (response.status === 201) {
           console.log('User created successfully');
-          toggleForm();
+          window.location = `/welcome/${formData.name}`;
         }
       })
       .catch(error => {
