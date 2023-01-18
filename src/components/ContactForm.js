@@ -57,45 +57,44 @@ const ContactForm = ({ toggleForm, contactForm }) => {
   return (
     contactForm &&
       <div className='contact-form-container'>
-        <h2 className='contact-form-header'>Create an Account</h2>
+        <h2 className='contact-form-header'>Enter Your Information
+        <button className='close-button' onClick={toggleForm}>X</button></h2>
         <form className='contact-form'>
           
-          <label>Full Name:
+          
           <input
             id='contact-form-name'
             type="text"
             name="name"
-            placeholder="Enter Name"
+            placeholder="Full Name"
             value={formData.name}
             onChange={handleInputChange}
           />
-          </label>
           <br/>
           
-          <label>Email:  
+          
           <input
           id='contact-form-email'
             type="email"
             name="email"
-            placeholder="Enter Email"
+            placeholder="Email"
             value={formData.email}
             onChange={handleInputChange}
           />
-          </label>
           <br/>
           
-          <label>Password:
+          
           <input
           id='contact-form-password'
             type="password"
             name="password"
-            placeholder="Enter Password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleInputChange}
           />
-          </label>
           <br/>
           
+          <div className='dropdowns'>
           <select
            id='contact-form-occupation'
             name="occupation"
@@ -109,7 +108,7 @@ const ContactForm = ({ toggleForm, contactForm }) => {
               </option>
             ))}
           </select>
-          <br/>
+          
           
           <select
           id='contact-form-state'
@@ -125,14 +124,14 @@ const ContactForm = ({ toggleForm, contactForm }) => {
             ))}
           </select>
           <br/>
-          
-          <button type="submit" onClick={handleSubmit}>
-            Submit Information
+          </div>
+          <button className='submit-button' type="submit" onClick={handleSubmit}>
+            Submit
           </button>
 
         </form>
         
-        <button onClick={toggleForm}>Close</button>
+        
       </div>
     
   );
